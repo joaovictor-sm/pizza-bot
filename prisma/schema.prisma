@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Estoque {
+  id              Int    @id @default(autoincrement())
+  nomeIngrediente String @unique
+  quantidade      Int
+  unidadeMedida   String
+}
+
+model Pedido {
+  id             Int      @id @default(autoincrement())
+  itens          Json // Ingredientes e suas quantidades em formato JSON
+  dataHora       DateTime @default(now())
+  pedidoCompleto Boolean  @default(false)
+}
